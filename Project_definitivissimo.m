@@ -295,20 +295,15 @@ if(viz==1)
     end
 end 
 
-
 %% ANALISI INDICE DI COERENZA ALPHA
-
 %Trovo le combinazioni 
 C = nchoosek(ch_names,2);
 for i=1:length(C(:,1))
     lg{i}=strcat(C{i,:});
 end 
-
-
 S_matrix_rest_alpha=zeros(length(C),length(Subjects_Rest));
 S_matrix_task_alpha=zeros(length(C),length(Subjects_Task));
-
-for i=1:length(Subjects_Rest) %Giro i soggetti
+for i=1:length(Subjects_Task) %Giro i soggetti
     M_rest=[];
     M_task=[];
     for j=1:1:length(C(:,1))        %Giro le combinazioni di canali 
@@ -327,26 +322,24 @@ for i=1:length(Subjects_Rest)
     [M,I] = max (S_matrix_rest_alpha(:,i));
     fprintf("REST sub;%d,Electrodes:%s, Value:%f\n",i,lg{I},M);
 end
-
 disp("#############################")
-for i=1:length(Subjects_task_alpha)
+for i=1:length(Subjects_Task)
     [M,I] = max (S_matrix_task_alpha(:,i));
     fprintf("TASK sub:%d, Electrodes:%s, Value:%f\n",i,lg{I},M);
 end
-%% PLOT COERENZA ALPHA
-plot_coherence(S_matrix_rest_alpha,S_matrix_task_alpha, chanlocs,C);
 
-%% ANALISI INDICE COERENZA BETA 
-S_matrix_rest_beta=zeros(length(C),length(Subjects_rest_beta));
-S_matrix_task_beta=zeros(length(C),length(Subjects_task_beta ));
+%%
+% ANALISI INDICE COERENZA BETA 
+S_matrix_rest_beta=zeros(length(C),length(Subjects_Rest));
+S_matrix_task_beta=zeros(length(C),length(Subjects_Task));
 
-for i=1:length(Subjects_rest_beta) %Giro i soggetti
+for i=1:length(Subjects_Rest) %Giro i soggetti
     M_rest=[];
     M_task=[];
     for j=1:1:length(C(:,1))        %Giro le combinazioni di canali 
-        [cxy_rest,ft]= mscohere(Subjects_rest_beta{i}.(C{j,1})(7251:22250),Subjects_rest_beta{i}.(C{j,2})(7251:22250),...
+        [cxy_rest,ft]= mscohere(Subjects_Rest{i}.(C{j,1})(7251:22250),Subjects_Rest{i}.(C{j,2})(7251:22250),...
                        hamming(2500),1250,frequency_band{2},500);
-        [cxy_task,ft]= mscohere(Subjects_task_beta {i}.(C{j,1})(7251:22250),Subjects_task_beta{i}.(C{j,2})(7251:22250),...
+        [cxy_task,ft]= mscohere(Subjects_Task{i}.(C{j,1})(7251:22250),Subjects_Task{i}.(C{j,2})(7251:22250),...
                        hamming(2500),1250,frequency_band{2},500);
         M_rest(j)=max(cxy_rest);
         M_task(j)=max(cxy_task);
@@ -355,16 +348,17 @@ for i=1:length(Subjects_rest_beta) %Giro i soggetti
     S_matrix_task_beta(:,i)=M_task;
 end 
 fprintf("\n BETA BAND\n")
-for i=1:length(Subjects_rest_beta)
+for i=1:length(Subjects_Rest)
     [M,I] = max (S_matrix_rest_beta(:,i));
     fprintf("REST sub;%d,Electrodes:%s, Value:%f\n",i,lg{I},M);
 end
 
 disp("#############################")
-for i=1:length(Subjects_task_beta)
+for i=1:length(Subjects_Task)
     [M,I] = max (S_matrix_task_beta(:,i));
     fprintf("TASK sub:%d, Electrodes:%s, Value:%f\n",i,lg{I},M);
 end
-%% PLOT COERENZA BETA
+%%
 plot_coherence(S_matrix_rest_beta,S_matrix_task_beta, chanlocs,C);
+plot_coherence(S_matrix_rest_alpha,S_matrix_task_alpha, chanlocs,C);
 
