@@ -8,7 +8,7 @@ viz=1;
 fs_EEG=500; 
 %Canali 
 chanlocs=load("chanlocs.mat");
-frequency_band={7:(1/fs_EEG):14, 13:(1/fs_EEG):30, 4:(1/fs_EEG):7};
+frequency_band={8:(1/fs_EEG):13, 13:(1/fs_EEG):30, 4:(1/fs_EEG):8};
 sub=[1,2,3,7,8]; % non consideriamo soggetto 5 perchè outliers
 
 for i=1:length(sub)
@@ -23,7 +23,7 @@ ch_names=fieldnames(Subjects_Rest{1});
 
 %% BANDE Theta
 %parametri
-wf=(7/(fs_EEG/2));
+wf=(8/(fs_EEG/2));
 wl=(4/(fs_EEG/2));
 filter_order=4;
 
@@ -46,8 +46,8 @@ end
 
 %% BANDE ALPHA
 %parametri
-wf=(14 /(fs_EEG/2));
-wl=(7/(fs_EEG/2));
+wf=(13 /(fs_EEG/2));
+wl=(8/(fs_EEG/2));
 filter_order=4;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
