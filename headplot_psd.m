@@ -31,4 +31,3 @@ function []= headplot_psd(M_rest,M_task,band_name,chanlocs)
         end
     end 
 end
- 
