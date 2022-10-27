@@ -209,6 +209,7 @@ if(viz==1)
         subplot(1,5,i)
         boxplot([avg_max_rest(:,i);avg_max_task(:,i)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
         ylim([0,max_all]);
+        ylabel('MaxPSD (dB/Hz)');
         title(title_box{i})
         grid on 
 
@@ -245,6 +246,7 @@ if (viz==1)
         subplot(1,5,i)
         boxplot([avg_max_rest(:,i);avg_max_task(:,i)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
         ylim([0,max_all]);
+        ylabel('MaxPSD (dB/Hz)');
         title(title_box{i})
         grid on 
     
@@ -257,14 +259,14 @@ if (viz==1)
         
     end
     
-
 end 
-
+%%
 figure(10)
 subplot(1,2,1)
 boxplot([avg_max_rest(:,3);avg_max_task(:,3)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
 ylim([0,max_all]);
 title(title_box{3})
+ylabel('MaxPSD (dB/Hz)');
 grid on 
     
 color=[0 0 1; 1 0 0];
@@ -276,11 +278,14 @@ subplot(1,2,2)
 boxplot([avg_max_rest(:,4);avg_max_task(:,4)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
 ylim([0,max_all]);
 title(title_box{4})
-grid on 
+ylabel('MaxPSD (dB/Hz)');
+grid on
+color=[0 0 1; 1 0 0];
+h = findobj(gca,'Tag','Box');
     for j=1:length(h)
           patch(get(h(j),'XData'),get(h(j),'YData'),color(j,:),'FaceAlpha',.5);
     end
-    
+
            %% ANALISI BOXPLOT BETA 
 max_beta_rest=[];
 max_beta_task=[];
@@ -305,9 +310,10 @@ if(viz==1)
     figure('Name','Beta Band')
     for i=1:5
     
-        subplot(1,2,i)
+        subplot(1,5,i)
         boxplot([avg_max_rest(:,i);avg_max_task(:,i)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
         ylim([0,max_all]);
+        ylabel('MaxPSD (dB/Hz)');
         title(title_box{i})
         grid on 
     
