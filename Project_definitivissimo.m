@@ -188,8 +188,8 @@ max_theta_task=[];
 
 for i=1:1:length(sub) 
     for s=1:1:length(ch_names)
-        max_theta_rest(i,s) = max(M_rest_theta(s,find(fr_t==4):find(fr_t==7),i));
-        max_theta_task(i,s) = max(M_task_theta(s,find(ft_t==4):find(ft_t==7),i));
+        max_theta_rest(i,s) = max(M_rest_theta(s,find(fr_t==4):find(fr_t==8),i));
+        max_theta_task(i,s) = max(M_task_theta(s,find(ft_t==4):find(ft_t==8),i));
     end
 end 
 
@@ -226,8 +226,8 @@ max_alpha_task=[];
 
 for i=1:1:length(sub) 
     for s=1:1:length(ch_names)
-        max_alpha_rest(i,s) = max(M_rest_alpha(s,find(fr_a==7):find(fr_a==14),i));
-        max_alpha_task(i,s) = max(M_task_alpha(s,find(ft_a==7):find(ft_a==14),i));
+        max_alpha_rest(i,s) = max(M_rest_alpha(s,find(fr_a==8):find(fr_a==13),i));
+        max_alpha_task(i,s) = max(M_task_alpha(s,find(ft_a==8):find(ft_a==13),i));
     end
 end 
 
