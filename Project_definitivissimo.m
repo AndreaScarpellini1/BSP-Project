@@ -113,7 +113,7 @@ end
 
 %% PLOTTO PSD theta mediato ch_names
 if (viz==1)
-    errorbar_psd_2(M_rest_theta,M_task_theta,ft_t,' THETA BAND');
+    errorbar_psd(M_rest_theta,M_task_theta,ft_t,' THETA BAND');
 end
 
 %% PLOTTO HEAD PLOT DEI SOGGETTI 
@@ -150,7 +150,7 @@ end
 % computazionalemtne più leggero
 %% PLOTTO PSD ALPHA mediato ch_names
 if (viz==1)
-    errorbar_psd_2(M_rest_alpha,M_task_alpha,ft_a,' ALPHA BAND');
+    errorbar_psd(M_rest_alpha,M_task_alpha,ft_a,' ALPHA BAND');
 end 
 %% PLOTTO HEAD PLOT DEI SOGGETTI 
 if (viz==1)
@@ -175,7 +175,7 @@ end
 
 %% PLOTTO PSD BETA mediato ch_names
 if (viz==1)
-    errorbar_psd_2(M_rest_beta,M_task_beta,ft_b,' BETA BAND');
+    errorbar_psd(M_rest_beta,M_task_beta,ft_b,' BETA BAND');
 end
 
 %% PLOTTO HEAD PLOT DEI SOGGETTI 
