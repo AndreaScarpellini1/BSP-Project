@@ -1,5 +1,5 @@
 clc 
-clear all
+clear
 close all
 %% if you want to visualize VIZ =1
 viz=1;
