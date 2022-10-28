@@ -25,7 +25,7 @@ ch_names=fieldnames(Subjects_Rest{1});
 %parametri
 wf=(8/(fs_EEG/2));
 wl=(4/(fs_EEG/2));
-filter_order=4;
+filter_order=8;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
 [b2,a2] = butter(filter_order,wf,'low');
@@ -48,7 +48,7 @@ end
 %parametri
 wf=(13 /(fs_EEG/2));
 wl=(8/(fs_EEG/2));
-filter_order=4;
+filter_order=8;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
 [b2,a2] = butter(filter_order,wf,'low');
@@ -73,7 +73,7 @@ end
 %parametri
 wf=(30/(fs_EEG/2));
 wl=(13/(fs_EEG/2));
-filter_order=4;
+filter_order=8;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
 [b2,a2] = butter(filter_order,wf,'low');
@@ -120,7 +120,6 @@ end
 if(viz==1)
 headplot_psd(M_rest_theta,M_task_theta,' THETA BAND',chanlocs);
 end
-
 %% CALCOLO PSD REST ALPHA 
 %INFO
 % Lunghezza segnale: 30 s
@@ -283,7 +282,7 @@ h = findobj(gca,'Tag','Box');
           patch(get(h(j),'XData'),get(h(j),'YData'),color(j,:),'FaceAlpha',.5);
     end
 
-           %% ANALISI BOXPLOT BETA 
+%% ANALISI BOXPLOT BETA 
 max_beta_rest=[];
 max_beta_task=[];
 
