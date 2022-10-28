@@ -209,6 +209,7 @@ if(viz==1)
         subplot(1,5,i)
         boxplot([avg_max_rest(:,i);avg_max_task(:,i)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
         ylim([0,max_all]);
+        ylabel('MaxPSD (dB/Hz)');
         title(title_box{i})
         grid on 
 
@@ -245,6 +246,7 @@ if (viz==1)
         subplot(1,5,i)
         boxplot([avg_max_rest(:,i);avg_max_task(:,i)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
         ylim([0,max_all]);
+        ylabel('MaxPSD (dB/Hz)');
         title(title_box{i})
         grid on 
     
@@ -255,9 +257,33 @@ if (viz==1)
         end
     end
 end 
+%%
+figure(10)
+subplot(1,2,1)
+boxplot([avg_max_rest(:,3);avg_max_task(:,3)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
+ylim([0,max_all]);
+title(title_box{3})
+ylabel('MaxPSD (dB/Hz)');
+grid on 
+    
+color=[0 0 1; 1 0 0];
+h = findobj(gca,'Tag','Box');
+     for j=1:length(h)
+          patch(get(h(j),'XData'),get(h(j),'YData'),color(j,:),'FaceAlpha',.5);
+     end
+subplot(1,2,2)
+boxplot([avg_max_rest(:,4);avg_max_task(:,4)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
+ylim([0,max_all]);
+title(title_box{4})
+ylabel('MaxPSD (dB/Hz)');
+grid on
+color=[0 0 1; 1 0 0];
+h = findobj(gca,'Tag','Box');
+    for j=1:length(h)
+          patch(get(h(j),'XData'),get(h(j),'YData'),color(j,:),'FaceAlpha',.5);
+    end
 
-
-%% ANALISI BOXPLOT BETA 
+           %% ANALISI BOXPLOT BETA 
 max_beta_rest=[];
 max_beta_task=[];
 
@@ -284,6 +310,7 @@ if(viz==1)
         subplot(1,5,i)
         boxplot([avg_max_rest(:,i);avg_max_task(:,i)],[repelem("Rest",length(sub)),repelem("Task",length(sub))],'Color',['r','b']);
         ylim([0,max_all]);
+        ylabel('MaxPSD (dB/Hz)');
         title(title_box{i})
         grid on 
     
@@ -294,13 +321,15 @@ if(viz==1)
         end
     end
 end 
-%% ANALISI COERENZATrovo le combinazioni 
+
+%% ANALISI INDICE DI COERENZA 
+%Trovo le combinazioni 
 C = nchoosek(ch_names,2);
 for i=1:length(C(:,1))
     lg{i}=strcat(C{i,:});
 end 
 
-%% ANALISI INDICE COERENZA TETA 
+% ANALISI INDICE COERENZA TETA 
 S_matrix_rest_theta=zeros(length(C),length(Subjects_Rest));
 S_matrix_task_theta=zeros(length(C),length(Subjects_Task));
 for i=1:length(Subjects_Rest) %Giro i soggetti
@@ -317,7 +346,7 @@ for i=1:length(Subjects_Rest) %Giro i soggetti
     S_matrix_rest_theta(:,i)=M_rest; 
     S_matrix_task_theta(:,i)=M_task;
 end 
-%% ANALISI INDICE DI COERENZA ALPHA
+% ANALISI INDICE DI COERENZA ALPHA
 S_matrix_rest_alpha=zeros(length(C),length(Subjects_Rest));
 S_matrix_task_alpha=zeros(length(C),length(Subjects_Task));
 for i=1:length(Subjects_Task) %Giro i soggetti
@@ -334,7 +363,7 @@ for i=1:length(Subjects_Task) %Giro i soggetti
     S_matrix_rest_alpha(:,i)=M_rest; 
     S_matrix_task_alpha(:,i)=M_task;
 end 
-%% ANALISI INDICE COERENZA BETA 
+% ANALISI INDICE COERENZA BETA 
 S_matrix_rest_beta=zeros(length(C),length(Subjects_Rest));
 S_matrix_task_beta=zeros(length(C),length(Subjects_Task));
 for i=1:length(Subjects_Rest) %Giro i soggetti
