@@ -10,7 +10,7 @@ labels={};
     end
 
 figure,
-for i=1:6
+for i=1:5
     subplot(2,3,i)
     
     plot(x,y,'.','Color','k')

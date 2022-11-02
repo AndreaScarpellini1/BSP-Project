@@ -25,7 +25,7 @@ ch_names=fieldnames(Subjects_Rest{1});
 %parametri
 wf=(8/(fs_EEG/2));
 wl=(4/(fs_EEG/2));
-filter_order=4;
+filter_order=8;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
 [b2,a2] = butter(filter_order,wf,'low');
@@ -48,7 +48,7 @@ end
 %parametri
 wf=(13 /(fs_EEG/2));
 wl=(8/(fs_EEG/2));
-filter_order=4;
+filter_order=8;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
 [b2,a2] = butter(filter_order,wf,'low');
@@ -73,7 +73,7 @@ end
 %parametri
 wf=(30/(fs_EEG/2));
 wl=(13/(fs_EEG/2));
-filter_order=4;
+filter_order=8;
 
 [b1,a1] = butter(filter_order,wl,'high'); 
 [b2,a2] = butter(filter_order,wf,'low');
@@ -120,7 +120,6 @@ end
 if(viz==1)
 headplot_psd(M_rest_theta,M_task_theta,' THETA BAND',chanlocs);
 end
-
 %% CALCOLO PSD REST ALPHA 
 %INFO
 % Lunghezza segnale: 30 s
@@ -322,14 +321,31 @@ if(viz==1)
     end
 end 
 
-
-
-%% ANALISI INDICE DI COERENZA ALPHA
+%% ANALISI INDICE DI COERENZA 
 %Trovo le combinazioni 
 C = nchoosek(ch_names,2);
 for i=1:length(C(:,1))
     lg{i}=strcat(C{i,:});
 end 
+
+% ANALISI INDICE COERENZA TETA 
+S_matrix_rest_theta=zeros(length(C),length(Subjects_Rest));
+S_matrix_task_theta=zeros(length(C),length(Subjects_Task));
+for i=1:length(Subjects_Rest) %Giro i soggetti
+    M_rest=[];
+    M_task=[];
+    for j=1:1:length(C(:,1))        %Giro le combinazioni di canali 
+        [cxy_rest,ft]= mscohere(Subjects_Rest{i}.(C{j,1})(7251:22250),Subjects_Rest{i}.(C{j,2})(7251:22250),...
+                       hamming(2500),1250,frequency_band{1},500);
+        [cxy_task,ft]= mscohere(Subjects_Task{i}.(C{j,1})(7251:22250),Subjects_Task{i}.(C{j,2})(7251:22250),...
+                       hamming(2500),1250,frequency_band{1},500);
+        M_rest(j)=max(cxy_rest);
+        M_task(j)=max(cxy_task);
+    end    
+    S_matrix_rest_theta(:,i)=M_rest; 
+    S_matrix_task_theta(:,i)=M_task;
+end 
+% ANALISI INDICE DI COERENZA ALPHA
 S_matrix_rest_alpha=zeros(length(C),length(Subjects_Rest));
 S_matrix_task_alpha=zeros(length(C),length(Subjects_Task));
 for i=1:length(Subjects_Task) %Giro i soggetti
@@ -346,22 +362,9 @@ for i=1:length(Subjects_Task) %Giro i soggetti
     S_matrix_rest_alpha(:,i)=M_rest; 
     S_matrix_task_alpha(:,i)=M_task;
 end 
-fprintf("\n ALPHA BAND\n")
-for i=1:length(Subjects_Rest)
-    [M,I] = max (S_matrix_rest_alpha(:,i));
-    fprintf("REST sub;%d,Electrodes:%s, Value:%f\n",i,lg{I},M);
-end
-disp("#############################")
-for i=1:length(Subjects_Task)
-    [M,I] = max (S_matrix_task_alpha(:,i));
-    fprintf("TASK sub:%d, Electrodes:%s, Value:%f\n",i,lg{I},M);
-end
-
-%%
 % ANALISI INDICE COERENZA BETA 
 S_matrix_rest_beta=zeros(length(C),length(Subjects_Rest));
 S_matrix_task_beta=zeros(length(C),length(Subjects_Task));
-
 for i=1:length(Subjects_Rest) %Giro i soggetti
     M_rest=[];
     M_task=[];
@@ -376,18 +379,8 @@ for i=1:length(Subjects_Rest) %Giro i soggetti
     S_matrix_rest_beta(:,i)=M_rest; 
     S_matrix_task_beta(:,i)=M_task;
 end 
-fprintf("\n BETA BAND\n")
-for i=1:length(Subjects_Rest)
-    [M,I] = max (S_matrix_rest_beta(:,i));
-    fprintf("REST sub;%d,Electrodes:%s, Value:%f\n",i,lg{I},M);
-end
-
-disp("#############################")
-for i=1:length(Subjects_Task)
-    [M,I] = max (S_matrix_task_beta(:,i));
-    fprintf("TASK sub:%d, Electrodes:%s, Value:%f\n",i,lg{I},M);
-end
 %%
-plot_coherence(S_matrix_rest_beta,S_matrix_task_beta, chanlocs,C);
+plot_coherence(S_matrix_rest_theta,S_matrix_task_theta, chanlocs,C);
+plot_coherence(S_matrix_rest_beta, S_matrix_task_beta,   chanlocs,C);
 plot_coherence(S_matrix_rest_alpha,S_matrix_task_alpha, chanlocs,C);
 
