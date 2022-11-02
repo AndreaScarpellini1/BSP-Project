@@ -255,10 +255,7 @@ if (viz==1)
         for j=1:length(h)
             patch(get(h(j),'XData'),get(h(j),'YData'),color(j,:),'FaceAlpha',.5);
         end
-
-        
     end
-    
 end 
 %%
 figure(10)
@@ -286,7 +283,7 @@ h = findobj(gca,'Tag','Box');
           patch(get(h(j),'XData'),get(h(j),'YData'),color(j,:),'FaceAlpha',.5);
     end
 
-           %% ANALISI BOXPLOT BETA 
+%% ANALISI BOXPLOT BETA 
 max_beta_rest=[];
 max_beta_task=[];
 
