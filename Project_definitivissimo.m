@@ -336,9 +336,9 @@ for i=1:length(Subjects_Rest) %Giro i soggetti
     M_task=[];
     for j=1:1:length(C(:,1))        %Giro le combinazioni di canali 
         [cxy_rest,ft]= mscohere(Subjects_Rest{i}.(C{j,1})(7251:22250),Subjects_Rest{i}.(C{j,2})(7251:22250),...
-                       hamming(2500),1250,frequency_band{1},500);
+                       hamming(2500),1250,frequency_band{3},500);
         [cxy_task,ft]= mscohere(Subjects_Task{i}.(C{j,1})(7251:22250),Subjects_Task{i}.(C{j,2})(7251:22250),...
-                       hamming(2500),1250,frequency_band{1},500);
+                       hamming(2500),1250,frequency_band{3},500);
         M_rest(j)=max(cxy_rest);
         M_task(j)=max(cxy_task);
     end    

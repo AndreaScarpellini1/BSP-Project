@@ -41,6 +41,7 @@ function []= errorbar_psd(M_rest,M_task,ft,band_name)
         plot_areaerrorbar(M_c_task,optionst);
         legend('','rest','','task');
         title([Name_region{i},band_name])
-        
+        xlabel('Frequency (Hz)');
+        ylabel('Power/Frequency (db/Hz)')
     end 
 end 
