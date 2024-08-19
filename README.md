@@ -89,4 +89,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For further information, feel free to contact:
 
-- **Andrea Scarpellini** - [andrea.scarpellini@example.com](mailto:andrea1.scarpellini@mail.polimi.it)
+- **Andrea Scarpellini** - [andrea1.scarpellini@mail.polimi.it](mailto:andrea1.scarpellini@mail.polimi.it)
